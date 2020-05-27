@@ -1,0 +1,5 @@
+{
+    "editor.wordSeparators": "`~!@#%^&*()-=+[{]}\\|;:'\",.<>/?",
+    "php.executablePath": "/usr/bin/php",
+    "terminal.integrated.shell.linux": "/bin/bash",
+}
