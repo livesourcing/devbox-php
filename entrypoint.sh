@@ -3,7 +3,7 @@ set -e
 
 # starting php-fpm
 echo "Starting php-fpm"
-sudo service php7.4-fpm restart
+sudo service php7.3-fpm restart
 
 # starting apache2
 echo "Starting apache"

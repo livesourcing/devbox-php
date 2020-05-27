@@ -6,16 +6,19 @@ EXPOSE 80
 ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN=true
 
-RUN apt update
-
 # config selections for install
 RUN echo 'tzdata tzdata/Areas select Etc' | debconf-set-selections; \
     echo 'tzdata tzdata/Zones/Etc select UTC' | debconf-set-selections
 
-RUN apt install -y --no-install-recommends php php-dev php-cli php-fpm \
-        php-json php-pdo php-mysql php-zip php-gd php-mbstring php-curl php-xml \
-        php-pear php-bcmath php-memcache php-memcached php-apcu php-xdebug \
-        libapache2-mod-php7.4 apache2 wget dumb-init \
+RUN apt update && \
+    apt install -y software-properties-common && \
+    add-apt-repository -y ppa:ondrej/php && \
+    apt update
+
+RUN apt install -y --no-install-recommends php7.3 php7.3-dev php7.3-cli php7.3-fpm \
+        php7.3-json php7.3-mysql php7.3-zip php7.3-gd php7.3-mbstring php7.3-curl php7.3-xml \
+        php-pear php7.3-bcmath php-memcache php-memcached php-apcu php-xdebug \
+        libapache2-mod-php7.3 apache2 wget dumb-init \
         sudo curl ca-certificates
 
 # enable apache2 mods
@@ -45,13 +48,16 @@ RUN rm -rf /var/www && \
     rm -rf /var/lib/apt/lists/*
 
 # setup xdebug
-RUN echo "zend_extension=xdebug.so" > /etc/php/7.4/mods-available/xdebug.ini && \
-    echo "[XDebug]" >> /etc/php/7.4/mods-available/xdebug.ini && \
-    echo "xdebug.remote_enable = 1" >> /etc/php/7.4/mods-available/xdebug.ini && \
-    echo "xdebug.remote_autostart = 1" >> /etc/php/7.4/mods-available/xdebug.ini
+RUN echo "zend_extension=xdebug.so" > /etc/php/7.3/mods-available/xdebug.ini && \
+    echo "[XDebug]" >> /etc/php/7.3/mods-available/xdebug.ini && \
+    echo "xdebug.remote_enable = 1" >> /etc/php/7.3/mods-available/xdebug.ini && \
+    echo "xdebug.remote_autostart = 1" >> /etc/php/7.3/mods-available/xdebug.ini
 
 # setup workdir
 RUN chown -R coder:coder /app
+
+# setup php fpm
+RUN mkdir -p /run/php
 
 # add config files
 ADD files/home/coder/.local /home/coder/.local
