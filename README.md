@@ -10,9 +10,9 @@ You can also debug either running php script or through HTTP.
 
 On the folder you want to start your session you can do:
 ```
- docker run --rm -ti -p 8000:80 \
-    --user=`id -u`:`id -g` livesourcing/devbox-php:latest \
-    -v `pwd``:/app devbox-php:latest
+docker run --rm -ti -p 8000:80 \
+    --user=`id -u`:`id -g` \
+    -v `pwd`:/app livesourcing/devbox-php:latest
 ```
 
 After this, you can go into:
