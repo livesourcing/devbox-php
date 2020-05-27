@@ -23,6 +23,6 @@ And will open vscode
 The website will be at:
 http://127.0.0.1:8000
 
-*Notes:* You can also use `devbox-php:7.3` to use php 7.3 instead latest 7.4
+*Notes:* You can also use `livesourcing/devbox-php:7.3` to use php 7.3 instead latest 7.4
 
 
